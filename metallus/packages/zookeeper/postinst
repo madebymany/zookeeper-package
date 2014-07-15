@@ -2,6 +2,17 @@
 
 set -e
 
+
+restart_service() {
+  status="$(sv status zookeeper)"
+  if [ -n "$(echo $status | grep "run")" ]
+  then
+    sv restart zookeeper
+  else
+    sv start zookeeper
+  fi
+}
+
 [ -r /etc/default/zookeeper ] && . /etc/default/zookeeper
 
 case "$1" in
@@ -20,6 +31,10 @@ case "$1" in
     fi
 
     chown -R ${ZOOKEEPER_USER}:${ZOOKEEPER_GROUP} /var/lib/zookeeper
+
+    [ ! -h "/etc/service/zookeeper" ] && ln -s "/etc/sv/zookeeper" "/etc/service"
+
+    restart_service
     ;;
 esac
 
