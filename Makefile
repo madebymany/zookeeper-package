@@ -8,13 +8,12 @@ ZOOKEEPER_CHECKSUM := $(ZOOKEEPER_TARBALL).asc
 
 ZOOKEEPER_CHECKSUM_URL := http://www.eu.apache.org/dist/zookeeper/$(ZOOKEEPER_EXTRACT_DIR)/$(ZOOKEEPER_CHECKSUM)
 ZOOKEEPER_KEYS := KEYS
-ZOOKEEPER_TEMP_GPG_KEYRING := ./zookeeper-keyring # ./ needed otherwise gpg puts it in ~/.gpg
 
 ZOOKEEPER_CLI_TOOLS := /usr/bin/zk_mt /usr/bin/zk_st
 
 DEPENDENCIES := curl zip
 CURL := curl -LSs
-GPG := gpg --keyring "$(ZOOKEEPER_TEMP_GPG_KEYRING)" --no-default-keyring
+GPG := gpg# --keyring "$(ZOOKEEPER_TEMP_GPG_KEYRING)" --no-default-keyring
 
 all: apt $(ZOOKEEPER_EXTRACT_DIR) $(ZOOKEEPER_CLI_TOOLS)
 
@@ -25,9 +24,8 @@ apt:
 $(ZOOKEEPER_TARBALL):
 	$(CURL) -o "$(ZOOKEEPER_TARBALL)" "$(ZOOKEEPER_SOURCE_URL)"
 	$(CURL) -o "$(ZOOKEEPER_CHECKSUM)" "$(ZOOKEEPER_CHECKSUM_URL)"
-	$(CURL) "$(ZOOKEEPER_KEYS)" | $(GPG) --import -
+	$(GPG) --import $(ZOOKEEPER_KEYS)
 	$(GPG) --verify "$(ZOOKEEPER_CHECKSUM)" "$(ZOOKEEPER_TARBALL)"
-	rm "$(ZOOKEEPER_TEMP_GPG_KEYRING)" "$(ZOOKEEPER_TEMP_GPG_KEYRING)~"
 
 $(ZOOKEEPER_EXTRACT_DIR): $(ZOOKEEPER_TARBALL)
 	tar -xzf "$(ZOOKEEPER_TARBALL)"
