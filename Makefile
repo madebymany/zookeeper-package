@@ -7,7 +7,7 @@ ZOOKEEPER_SOURCE_URL := http://mirror.vorboss.net/apache/zookeeper/$(ZOOKEEPER_E
 ZOOKEEPER_CHECKSUM := $(ZOOKEEPER_TARBALL).asc
 
 ZOOKEEPER_CHECKSUM_URL := http://www.eu.apache.org/dist/zookeeper/$(ZOOKEEPER_EXTRACT_DIR)/$(ZOOKEEPER_CHECKSUM)
-ZOOKEEPER_KEYS := https://www.eu.apache.org/dist/zookeeper/KEYS
+ZOOKEEPER_KEYS := KEYS
 ZOOKEEPER_TEMP_GPG_KEYRING := ./zookeeper-keyring # ./ needed otherwise gpg puts it in ~/.gpg
 
 ZOOKEEPER_CLI_TOOLS := /usr/bin/zk_mt /usr/bin/zk_st
