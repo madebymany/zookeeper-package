@@ -1,0 +1,9 @@
+#! /bin/bash
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-key adv --keyserver 'keys.gnupg.net' --recv-keys '7F40EF0A'
+echo "deb http://apt.mxmdev.com stable main" > /etc/apt/sources.list.d/apt.mxmdev.com.stable.list
+
+apt-get update -qq
+apt-get install -y --force-yes runit-common openjdk-7-jre-headless curl make

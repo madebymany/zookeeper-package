@@ -1,0 +1,17 @@
+software_groups: &software
+  - "base"
+
+jobs:
+  zookeeper:
+    builder: "make"
+    software_groups: *software
+    base: "ubuntu:12.04"
+    packages:
+      - type: debian
+        name: zookeeper
+        depends:
+          - runit-common
+          - openjdk-7-jre-headless
+        repos:
+          - mxm-public
+        target: install
