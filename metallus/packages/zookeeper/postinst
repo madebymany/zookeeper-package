@@ -4,13 +4,7 @@ set -e
 
 
 restart_service() {
-  status="$(sv status zookeeper)"
-  if [ -n "$(echo $status | grep "run")" ]
-  then
-    sv restart zookeeper
-  else
-    sv start zookeeper
-  fi
+  sv restart zookeeper >/dev/null 2>&1
 }
 
 [ -r /etc/default/zookeeper ] && . /etc/default/zookeeper
